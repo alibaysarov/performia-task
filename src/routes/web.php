@@ -15,7 +15,6 @@ use \App\Http\Controllers\TodosController;
 */
 
 Route::get('/',[IndexController::class,'index'])->name('home');
-Route::get('/login',[IndexController::class,'login'])->name('login');
 Route::get('/todos/all',[TodosController::class,'getAll'])->name('todos');
 Route::post('/todos/new',[TodosController::class,'addTodo']);
 Route::put('/todos/update/{id}',[TodosController::class,'updateTodo']);
