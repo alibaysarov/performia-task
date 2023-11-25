@@ -6,12 +6,13 @@ use App\Models\TodoModel;
 use Illuminate\Http\Request;
 use \Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class TodosController extends Controller
 {
     public function getAll(): JsonResponse
     {
-        $todos = TodoModel::all();
+        $todos = TodoModel::query()->where('user_id','=',Auth::user()->id)->get();
         if ($todos->count()) {
             return response()->json($todos);
         } else {
@@ -22,9 +23,13 @@ class TodosController extends Controller
     public function addTodo(Request $request, Response $response): JsonResponse
     {
         try {
-
             $title = $request->input('title');
-            $newTodo = TodoModel::create(['title' => $title]);
+            $newTodo = TodoModel::create(
+                [
+                    'title' => $title,
+                    'user_id' => Auth::user()->id
+                ]
+            );
             return response()->json(['message' => 'Successfully added'], 201);
         } catch (\Exception $exception) {
             return response()->json(['error' => $exception->getMessage()], 500);

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TodoModel extends Model
 {
@@ -11,7 +12,13 @@ class TodoModel extends Model
     protected $table ='todos';
     protected $primaryKey = 'id';
     protected $fillable=[
-        'title'
+        'title',
+        'user_id',
     ];
     public $timestamps = true;
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

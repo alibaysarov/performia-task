@@ -3,10 +3,11 @@ import TodoList from "../Components/TodoList.vue";
 import {router} from '@inertiajs/vue3'
 import {ref} from 'vue';
 import {onMounted} from "vue";
+import Header from "../Components/Header.vue";
 
 export default {
     name: "Home",
-    components: {TodoList},
+    components: {Header, TodoList},
     props: ['title', 'des'],
     setup() {
         const inputVal = ref('');
@@ -68,6 +69,7 @@ export default {
 </script>
 
 <template>
+    <Header/>
     <div class="todo__container container">
         <div class="d-flex flex-column align-items-center">
             <h1 class="text-center">{{ title }}</h1>
